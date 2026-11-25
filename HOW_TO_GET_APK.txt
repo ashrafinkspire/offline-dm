@@ -1,0 +1,8 @@
+GET THE APK WITHOUT CODING (about 10 minutes)
+1. Make a free account at github.com and click "New repository". Name it offline-dm. Choose Public. Create it.
+2. On the new repository page click "uploading an existing file".
+3. Unzip offline_dm.zip on your phone/PC. Drag ALL files and folders inside it (including the hidden ".github" folder) into the page. Click "Commit changes".
+   Tip: on a phone the hidden .github folder is easier from a PC or a browser's "Desktop site".
+4. Click the "Actions" tab. A build called "Build APK" starts; wait ~5-8 minutes for a green tick.
+5. Click that finished run, scroll to "Artifacts", download "OfflineDM-apk" (a zip), unzip it: app-release.apk is inside.
+6. Copy it to your Vivo, tap it, and allow "Install unknown apps" when asked.
