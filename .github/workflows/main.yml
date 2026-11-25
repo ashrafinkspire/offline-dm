@@ -1,0 +1,29 @@
+name: Build APK
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Prepare project
+        run: |
+          cp -r lib /tmp/_lib && cp pubspec.yaml /tmp/_pubspec.yaml
+          flutter create . --org com.example --project-name offline_dm --platforms android
+          rm -rf lib && cp -r /tmp/_lib lib && cp /tmp/_pubspec.yaml pubspec.yaml
+          M=android/app/src/main/AndroidManifest.xml
+          sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>\n    <application#' $M
+          flutter pub get
+      - run: flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OfflineDM-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
